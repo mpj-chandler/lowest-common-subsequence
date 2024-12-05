@@ -1,3 +1,3 @@
-module example.com/lowest-common-subsequence
+module example.com/longest-common-subsequence
 
 go 1.23.3

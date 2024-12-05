@@ -6,12 +6,7 @@ import (
 	"strings"
 )
 
-func main() {
-	argsWithoutProg := os.Args[1:]
-
-	x := strings.Split(argsWithoutProg[0], "")
-	y := strings.Split(argsWithoutProg[1], "")
-
+func construct_lowest_common_subsequence_table(x []string, y []string) [][]string {
 	m := len(x)
 	n := len(y)
 
@@ -41,6 +36,30 @@ func main() {
 		}
 	}
 
-	fmt.Println(b)
-	fmt.Println(c)
+	return b
+}
+
+func print_lowest_common_subsequence(b [][]string, x []string, i int, j int) {
+	if i < 0 || j < 0 {
+		return
+	}
+	if b[i][j] == "UL" {
+		print_lowest_common_subsequence(b, x, i-1, j-1)
+		fmt.Print(x[i])
+	} else if b[i][j] == "U" {
+		print_lowest_common_subsequence(b, x, i-1, j)
+	} else {
+		print_lowest_common_subsequence(b, x, i, j-1)
+	}
+}
+
+func main() {
+	argsWithoutProg := os.Args[1:]
+
+	x := strings.Split(argsWithoutProg[0], "")
+	y := strings.Split(argsWithoutProg[1], "")
+
+	b := construct_lowest_common_subsequence_table(x, y)
+
+	print_lowest_common_subsequence(b, x, len(x)-1, len(y)-1)
 }
